@@ -12,7 +12,7 @@ var router = express.Router();
 /* GET page. */
 router.get('/', function(req, res, next) {
   res.render('appinsight', { 
-	  title: 'Application Insights', 
+	  title: 'Azure Application Insights', 
 	  timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
 	});
 
