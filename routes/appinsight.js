@@ -13,12 +13,14 @@ var metricValue = 0;
 
 /* GET page. */
 router.get('/', function(req, res, next) {
+  metricValue	= Math.floor(Math.random()*10);
+  
   res.render('appinsight', { 
 	  title: 'Azure AppInsights w LogAnalytics', 
-	  timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
+	  metric: metricValue
+	  //timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
 	});
 
-	metricValue	= Math.floor(Math.random()*10);
 
   client.trackEvent({
 	  name: "KCEvent001", 
