@@ -9,7 +9,7 @@ var http = require('http');
 var express = require('express');
 const { Warning, Information } = require('applicationinsights/out/Declarations/Contracts/Generated/SeverityLevel');
 var router = express.Router();
-var hitCount = 0;
+var metricValue = 0;
 
 /* GET page. */
 router.get('/', function(req, res, next) {
@@ -17,6 +17,8 @@ router.get('/', function(req, res, next) {
 	  title: 'Azure AppInsights w LogAnalytics', 
 	  timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
 	});
+
+	metricValue	= Math.floor(Math.random()*10);
 
   client.trackEvent({
 	  name: "KCEvent001", 
@@ -30,7 +32,7 @@ router.get('/', function(req, res, next) {
 	  properties: {
 		module: "KCModule001",
 		exceptioninfo: "your exception detail",
-		exceptionmetrics: Math.floor(Math.random()*10)
+		exceptionmetrics: metricValue
 	  }
   	});
 	client.trackException({
@@ -39,14 +41,14 @@ router.get('/', function(req, res, next) {
 		properties: {
 			module: "KCModule001",
 			exceptioninfo: "your warning detail",
-			exceptionmetrics: Math.floor(Math.random()*10)
+			exceptionmetrics: metricValue
 		  }
 	});
   
-
+	
   client.trackMetric({
 	  name: "KCMetric001", 
-	  value: Math.floor(Math.random()*10)
+	  value: metricValue
 	});
   
 	client.trackTrace({
