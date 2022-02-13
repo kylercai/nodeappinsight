@@ -7,14 +7,14 @@ let client = appInsights.defaultClient;
 var http = require('http');
 
 var express = require('express');
-const { Warning } = require('applicationinsights/out/Declarations/Contracts/Generated/SeverityLevel');
+const { Warning, Information } = require('applicationinsights/out/Declarations/Contracts/Generated/SeverityLevel');
 var router = express.Router();
 var hitCount = 0;
 
 /* GET page. */
 router.get('/', function(req, res, next) {
   res.render('appinsight', { 
-	  title: 'Azure Application Insights w LogAnalytics', 
+	  title: 'Azure AppInsights w LogAnalytics', 
 	  timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
 	});
 
@@ -32,7 +32,8 @@ router.get('/', function(req, res, next) {
 	  }
   	});
 	client.trackException({
-		exception: new Warning("KC customized Warning-exception detail"),
+		exception: new Error("KC customized Warning-exception detail"),
+		severityLevel: Warning,
 		properties: {
 			module: "KCModule001"
 		  }
@@ -41,7 +42,7 @@ router.get('/', function(req, res, next) {
 
   client.trackMetric({
 	  name: "KCMetric001", 
-	  value: 3
+	  value: Math.floor(Math.random()*10)
 	});
   
 	client.trackTrace({
