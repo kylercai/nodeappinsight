@@ -9,11 +9,12 @@ var http = require('http');
 var express = require('express');
 const { Warning } = require('applicationinsights/out/Declarations/Contracts/Generated/SeverityLevel');
 var router = express.Router();
+var hitCount = 0;
 
 /* GET page. */
 router.get('/', function(req, res, next) {
   res.render('appinsight', { 
-	  title: 'Azure Application Insights', 
+	  title: 'Azure Application Insights w LogAnalytics', 
 	  timestamp: new Date().toLocaleString('zh-CN', {hour12: false}) 
 	});
 
