@@ -20,20 +20,20 @@ router.get('/', function(req, res, next) {
   client.trackEvent({
 	  name: "KCEvent001", 
 	  properties: {
-		  customProperty: "KCModule001"
+		  module: "KCModule001"
 		}
 	});
 
   client.trackException({
 	  exception: new Error("KC customized Error-exception detail"),
 	  properties: {
-		customProperty: "KCModule001"
+		module: "KCModule001"
 	  }
   	});
 	client.trackException({
 		exception: new Warning("KC customized Warning-exception detail"),
 		properties: {
-			customProperty: "KCModule001"
+			module: "KCModule001"
 		  }
 	});
   
@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
 	client.trackTrace({
 		message: "KC tracing message for detail!!!", 
 		properties: {
-			customProperty: "KCModule001"
+			module: "KCModule001"
 		  }
 	});
   
@@ -59,7 +59,7 @@ router.get('/', function(req, res, next) {
 	  success: true, 
 	  dependencyTypeName: "SQLDB",
 	  properties: {
-		customProperty: "KCModule001"
+		module: "KCModule001"
 	  }
 });
 
