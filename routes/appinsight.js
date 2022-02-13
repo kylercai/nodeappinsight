@@ -7,6 +7,7 @@ let client = appInsights.defaultClient;
 var http = require('http');
 
 var express = require('express');
+const { Warning } = require('applicationinsights/out/Declarations/Contracts/Generated/SeverityLevel');
 var router = express.Router();
 
 /* GET page. */
@@ -17,15 +18,37 @@ router.get('/', function(req, res, next) {
 	});
 
   client.trackEvent({
-	  name: "demo event", 
+	  name: "KCEvent001", 
 	  properties: {
-		  customProperty: "custom property value"
+		  customProperty: "KCModule001"
 		}
 	});
 
-  client.trackException({exception: new Error("handled exceptions can be logged with this method")});
-  client.trackMetric({name: "custom metric", value: 3});
-  client.trackTrace({message: "trace message"});
+  client.trackException({
+	  exception: new Error("KC customized Error-exception detail"),
+	  properties: {
+		customProperty: "KCModule001"
+	  }
+  	});
+	client.trackException({
+		exception: new Warning("KC customized Warning-exception detail"),
+		properties: {
+			customProperty: "KCModule001"
+		  }
+	});
+  
+
+  client.trackMetric({
+	  name: "KCMetric001", 
+	  value: 3
+	});
+  
+	client.trackTrace({
+		message: "KC tracing message for detail!!!", 
+		properties: {
+			customProperty: "KCModule001"
+		  }
+	});
   
   client.trackDependency({
 	  target:"http://dbname", 
@@ -34,8 +57,11 @@ router.get('/', function(req, res, next) {
 	  duration:231, 
 	  resultCode:0, 
 	  success: true, 
-	  dependencyTypeName: "SQLDB"
-	});
+	  dependencyTypeName: "SQLDB",
+	  properties: {
+		customProperty: "KCModule001"
+	  }
+});
 
   client.trackRequest({
 	  name:"GET /customers", 
