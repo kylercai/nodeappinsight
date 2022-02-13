@@ -28,14 +28,18 @@ router.get('/', function(req, res, next) {
   client.trackException({
 	  exception: new Error("KC customized Error-exception detail"),
 	  properties: {
-		module: "KCModule001"
+		module: "KCModule001",
+		exceptioninfo: "your exception detail",
+		exceptionmetrics: Math.floor(Math.random()*10)
 	  }
   	});
 	client.trackException({
 		exception: new Error("KC customized Warning-exception detail"),
 		severityLevel: Warning,
 		properties: {
-			module: "KCModule001"
+			module: "KCModule001",
+			exceptioninfo: "your warning detail",
+			exceptionmetrics: Math.floor(Math.random()*10)
 		  }
 	});
   
