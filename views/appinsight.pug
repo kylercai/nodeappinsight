@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1 Welcome to #{title}
-  h2 Random metric value is #{metric}
+  h2 <Time=#{time}.> Random metric value is #{metric}
+  h3 This are some Kusto samples handling custom Metric/Exception/Event:
+  #{filedata}
+

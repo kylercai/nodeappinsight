@@ -1,0 +1,58 @@
+// analysis for custom metric
+customMetrics
+| where name == "KCMetric001"
+| where timestamp > ago(3d) 
+| make-series KCMetric001=avg(valueMax) on timestamp step 1m
+| render timechart 
+
+customMetrics
+| where name == "KCMetric001"
+| where timestamp > ago(3d) 
+| summarize KCMetric001 = avg(valueSum) by bin(timestamp, 3min)
+| render timechart
+
+customMetrics
+| where name == "KCMetric001"
+| where timestamp > ago(3d) 
+| order by timestamp
+| project timestamp, name, valueMax, Percent = valueMax * 10
+//| extend numcolumn=valueMax+Percent
+
+
+// analysis for custom exception
+exceptions
+| where cloud_RoleName == "appServer"
+| where customDimensions.module == "KCModule001"
+| where timestamp > ago(3d) 
+| summarize expNum = count() by bin(timestamp, 1h)
+| render timechart 
+
+exceptions
+| where cloud_RoleName == "appServer"
+| where customDimensions.module == "KCModule001"
+| where timestamp > ago(3d) 
+| summarize expNum = count() by bin(timestamp, 1h)
+//| render timechart 
+| project timestamp, expNum
+
+exceptions
+| where cloud_RoleName == "appServer"
+| where customDimensions.module == "KCModule001"
+| where timestamp > ago(3d) 
+| order by timestamp
+| project timestamp, type, severityLevel, customDimensions.exceptionmetrics, customDimensions.exceptioninfo
+
+// analysis for custom event
+customEvents
+| where cloud_RoleName == "appServer"
+| where timestamp > ago(3d) 
+| order by timestamp
+
+customEvents
+| where cloud_RoleName == "appServer"
+| where customDimensions.module == "KCModule001"
+| where timestamp > ago(3d) 
+| order by timestamp
+| project timestamp, name, itemType, customDimensions
+
+//----------------------------------------------------------------------------------------------------------
